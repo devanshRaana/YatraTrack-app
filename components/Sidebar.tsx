@@ -3,14 +3,10 @@ import useGeolocation from '../hooks/useGeolocation';
 import { getNearbySuggestions } from '../services/geminiService';
 import { XMarkIcon } from './icons/XMarkIcon';
 import { CompassIcon } from './icons/CompassIcon';
-import { LogoutIcon } from './icons/LogoutIcon';
-import type firebase from 'firebase/compat/app';
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  onLogout: () => void;
-  user: firebase.User | null;
 }
 
 type Suggestion = {
@@ -18,7 +14,7 @@ type Suggestion = {
   description: string;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onLogout, user }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { position, error: locationError } = useGeolocation();
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,18 +42,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onLogout, user }) =>
         aria-hidden="true"
       ></div>
       <aside 
-        className={`fixed top-0 right-0 h-full w-full max-w-sm bg-gray-800/80 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 h-full w-full max-w-sm bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="sidebar-title"
       >
-        <div className="flex flex-col h-full text-white">
-          <header className="flex items-center justify-between p-4 border-b border-gray-700">
-            <h2 id="sidebar-title" className="text-xl font-bold text-teal-300 flex items-center">
+        <div className="flex flex-col h-full text-gray-900 dark:text-white">
+          <header className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 id="sidebar-title" className="text-xl font-bold text-teal-600 dark:text-teal-300 flex items-center">
               <CompassIcon className="w-6 h-6 mr-2" />
               What's Nearby?
             </h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-white" aria-label="Close sidebar">
+            <button onClick={onClose} className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" aria-label="Close sidebar">
               <XMarkIcon className="w-6 h-6" />
             </button>
           </header>
@@ -65,12 +61,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onLogout, user }) =>
           <div className="flex-grow p-4 overflow-y-auto">
             {isLoading && (
               <div className="flex flex-col items-center justify-center h-full text-center">
-                <div className="w-8 h-8 border-4 border-t-transparent border-teal-400 rounded-full animate-spin"></div>
-                <p className="mt-3 text-gray-300">Finding cool spots near you...</p>
+                <div className="w-8 h-8 border-4 border-t-transparent border-teal-500 dark:border-teal-400 rounded-full animate-spin"></div>
+                <p className="mt-3 text-gray-600 dark:text-gray-300">Finding cool spots near you...</p>
               </div>
             )}
             {locationError && !isLoading && (
-              <div className="text-center text-red-400 p-4 bg-red-500/10 rounded-lg">
+              <div className="text-center text-red-600 dark:text-red-400 p-4 bg-red-500/10 rounded-lg">
                 <p className="font-semibold">Location Error</p>
                 <p className="text-sm">{locationError}</p>
               </div>
@@ -78,29 +74,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onLogout, user }) =>
             {!isLoading && suggestions.length > 0 && (
               <ul className="space-y-3">
                 {suggestions.map((item, index) => (
-                  <li key={index} className="bg-white/5 p-4 rounded-lg animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
-                    <h3 className="font-bold text-teal-300">{item.name}</h3>
-                    <p className="text-sm text-gray-300 mt-1">{item.description}</p>
+                  <li key={index} className="bg-black/5 dark:bg-white/5 p-4 rounded-lg animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
+                    <h3 className="font-bold text-teal-600 dark:text-teal-300">{item.name}</h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{item.description}</p>
                   </li>
                 ))}
               </ul>
             )}
           </div>
-          <footer className="p-4 border-t border-gray-700 mt-auto">
-            {user && (
-              <div className="text-sm mb-4">
-                <p className="text-gray-400">Signed in as</p>
-                <p className="font-semibold truncate">{user.email}</p>
-              </div>
-            )}
-            <button 
-              onClick={onLogout}
-              className="w-full flex items-center justify-center gap-2 bg-red-600/30 text-red-300 py-2.5 px-4 rounded-lg hover:bg-red-600/50 hover:text-red-200 transition-colors duration-200"
-            >
-              <LogoutIcon className="w-5 h-5" />
-              <span>Logout</span>
-            </button>
-          </footer>
         </div>
       </aside>
       <style>{`

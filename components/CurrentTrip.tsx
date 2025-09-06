@@ -36,15 +36,15 @@ const CurrentTrip: React.FC<CurrentTripProps> = ({ trip, onEndTrip, onEmergencyC
   }, [position]);
 
   return (
-    <div className="flex flex-col h-full p-4 space-y-4 bg-gray-800/20 backdrop-blur-md animate-fade-in text-white">
+    <div className="flex flex-col h-full p-4 space-y-4 bg-gray-200/20 dark:bg-gray-800/20 backdrop-blur-md animate-fade-in text-gray-900 dark:text-white">
         <header className="text-center">
-            <h1 className="text-xl font-bold tracking-wider text-teal-200">{trip.origin}</h1>
-            <p className="text-sm text-gray-400">to</p>
-            <h1 className="text-xl font-bold tracking-wider text-teal-200">{trip.destination}</h1>
+            <h1 className="text-xl font-bold tracking-wider text-teal-700 dark:text-teal-200">{trip.origin}</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">to</p>
+            <h1 className="text-xl font-bold tracking-wider text-teal-700 dark:text-teal-200">{trip.destination}</h1>
         </header>
 
         {locationError && (
-             <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded-lg text-center text-sm" role="alert">
+             <div className="bg-red-500/20 border border-red-500 text-red-800 dark:text-red-200 px-4 py-2 rounded-lg text-center text-sm" role="alert">
                 <strong className="font-bold">Location Error: </strong>
                 <span>{locationError}</span>
             </div>
@@ -54,17 +54,17 @@ const CurrentTrip: React.FC<CurrentTripProps> = ({ trip, onEndTrip, onEmergencyC
             <Map apiKeyError/>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 text-center text-white">
-            <div className="bg-black/20 p-3 rounded-lg">
-                <p className="text-xs text-gray-400 uppercase">DISTANCE</p>
+        <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="bg-black/10 dark:bg-black/20 p-3 rounded-lg">
+                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">DISTANCE</p>
                 <p className="text-2xl font-bold">{distance.toFixed(2)} <span className="text-base font-normal">km</span></p>
             </div>
-            <div className="bg-black/20 p-3 rounded-lg">
-                <p className="text-xs text-gray-400 uppercase">DURATION</p>
+            <div className="bg-black/10 dark:bg-black/20 p-3 rounded-lg">
+                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">DURATION</p>
                 <p className="text-2xl font-bold">{formatDuration(duration)}</p>
             </div>
-            <div className="bg-black/20 p-3 rounded-lg">
-                <p className="text-xs text-gray-400 uppercase">SPEED</p>
+            <div className="bg-black/10 dark:bg-black/20 p-3 rounded-lg">
+                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">SPEED</p>
                 <p className="text-2xl font-bold">{speed.toFixed(0)} <span className="text-base font-normal">km/h</span></p>
             </div>
         </div>

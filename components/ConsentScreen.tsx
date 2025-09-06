@@ -6,13 +6,13 @@ interface ConsentScreenProps {
 
 const ConsentScreen: React.FC<ConsentScreenProps> = ({ onConsent }) => {
     return (
-        <div className="flex flex-col items-center justify-center h-full p-8 text-center animate-fade-in text-white">
-            <div className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl max-w-sm">
-                <h1 className="text-2xl font-bold mb-4 text-teal-200">Data Collection Consent</h1>
-                <p className="text-gray-300 mb-6 text-sm">
+        <div className="flex flex-col items-center justify-center h-full p-8 text-center animate-fade-in text-gray-900 dark:text-white">
+            <div className="bg-white/10 dark:bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl max-w-sm">
+                <h1 className="text-2xl font-bold mb-4 text-teal-700 dark:text-teal-200">Data Collection Consent</h1>
+                <p className="text-gray-800 dark:text-gray-300 mb-6 text-sm">
                     To improve transportation planning, this app collects trip-related information such as your origin, destination, mode of travel, and number of companions. This data will be anonymized and used by NATPAC scientists for research purposes.
                 </p>
-                <p className="text-gray-300 mb-8 text-sm">
+                <p className="text-gray-800 dark:text-gray-300 mb-8 text-sm">
                     Do you consent to the collection of this data?
                 </p>
                 <button

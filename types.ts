@@ -20,10 +20,41 @@ export interface Trip {
   path: { lat: number; lng: number; }[];
 }
 
+export enum Theme {
+  SYSTEM = 'system',
+  LIGHT = 'light',
+  DARK = 'dark',
+}
+
+export interface AppSettings {
+  theme: Theme;
+  locationEnabled: boolean;
+}
+
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
+export interface Checklist {
+  id: string;
+  name: string;
+  items: ChecklistItem[];
+}
+
+export interface EmergencyContact {
+  id: string;
+  name: string;
+  number: string;
+}
+
 export enum View {
   DASHBOARD,
   ADD_TRIP,
   CURRENT_TRIP,
   TRIPS_MAP_VIEW,
   TRIP_DETAIL,
+  SETTINGS,
+  CHECKLIST,
 }

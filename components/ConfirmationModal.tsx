@@ -8,9 +8,19 @@ interface ConfirmationModalProps {
   onConfirm: () => void;
   title: string;
   message: string;
+  confirmButtonText?: string;
+  confirmButtonClassName?: string;
 }
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ isOpen, onClose, onConfirm, title, message }) => {
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  onConfirm, 
+  title, 
+  message,
+  confirmButtonText = 'Delete',
+  confirmButtonClassName = 'bg-red-600 text-white hover:bg-red-700'
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -22,35 +32,35 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ isOpen, onClose, 
       aria-labelledby="confirmation-modal-title"
     >
       <div 
-        className="bg-gray-800 text-white rounded-2xl shadow-xl w-full max-w-sm relative animate-fade-in-up"
+        className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-2xl shadow-xl w-full max-w-sm relative animate-fade-in-up"
         onClick={e => e.stopPropagation()}
       >
         <div className="p-6 text-center">
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-500/20 mb-4">
-                <ShieldExclamationIcon className="h-6 w-6 text-red-400" />
+                <ShieldExclamationIcon className="h-6 w-6 text-red-500 dark:text-red-400" />
             </div>
-            <h2 id="confirmation-modal-title" className="text-xl font-bold text-red-300">{title}</h2>
-            <p className="text-sm text-gray-400 mt-2">{message}</p>
+            <h2 id="confirmation-modal-title" className="text-xl font-bold text-red-700 dark:text-red-300">{title}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{message}</p>
         </div>
         
-        <div className="grid grid-cols-2 gap-3 p-4 bg-white/5 rounded-b-2xl">
+        <div className="grid grid-cols-2 gap-3 p-4 bg-black/5 dark:bg-white/5 rounded-b-2xl">
             <button
                 onClick={onClose}
-                className="w-full bg-gray-600/50 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors"
+                className="w-full bg-gray-300 dark:bg-gray-600/50 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors"
             >
                 Cancel
             </button>
             <button
                 onClick={onConfirm}
-                className="w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
+                className={`w-full font-semibold py-2 px-4 rounded-lg transition-colors ${confirmButtonClassName}`}
             >
-                Delete
+                {confirmButtonText}
             </button>
         </div>
 
         <button 
           onClick={onClose} 
-          className="absolute top-4 right-4 text-gray-400 hover:text-white"
+          className="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           aria-label="Close confirmation"
         >
           <XMarkIcon className="w-6 h-6" />

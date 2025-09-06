@@ -31,6 +31,24 @@ const useGeolocation = () => {
   const lastPositionRef = useRef<GeolocationPosition | null>(null);
 
   useEffect(() => {
+    let locationEnabled = true;
+    try {
+      const storedSettings = localStorage.getItem('appSettings');
+      if (storedSettings) {
+        const settings = JSON.parse(storedSettings);
+        if (settings.locationEnabled === false) { // Check for explicit false
+          locationEnabled = false;
+        }
+      }
+    } catch (e) {
+      console.error("Could not parse settings for geolocation", e);
+    }
+
+    if (!locationEnabled) {
+      setError('Location tracking is disabled in settings.');
+      return;
+    }
+
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by your browser.');
       return;

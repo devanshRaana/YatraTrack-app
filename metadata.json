@@ -1,5 +1,5 @@
 {
-  "name": "My Journeys",
+  "name": "YatraTrack",
   "description": "A mobile-first web application designed to simplify travel data collection for transportation planning. Users can log their trips, including details like origin, destination, and mode of transport. The app leverages AI to suggest trip activities, streamlining the data entry process for both citizens and researchers.",
   "requestFramePermissions": [
     "geolocation"

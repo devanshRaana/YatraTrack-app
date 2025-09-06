@@ -1,8 +1,17 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
-// IMPORTANT: Replace with your app's Firebase project configuration.
-// You can find this in your Firebase project settings.
+// =================================================================
+// IMPORTANT: FIREBASE CONFIGURATION REQUIRED
+// =================================================================
+// To connect the app to your Firebase project, you MUST replace
+// the placeholder values below with your actual Firebase project's
+// web app configuration.
+//
+// You can find this configuration in the Firebase console:
+// Project Overview > Project settings > General > Your apps > Web app
+// =================================================================
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
@@ -17,4 +26,5 @@ if (!firebase.apps.length) {
 }
 
 export const auth = firebase.auth();
+export const db = firebase.firestore();
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
